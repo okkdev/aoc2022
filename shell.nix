@@ -9,6 +9,7 @@ mkShell {
     babashka
     clojure
     deno
+    libiconv
     gleam
     gleam-run
   ];

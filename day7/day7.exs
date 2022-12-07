@@ -20,14 +20,10 @@ defmodule Day7 do
     input
     |> File.read!()
     |> String.split("$ cd ", trim: true)
-    |> Enum.map(fn x ->
-      x
-      |> String.split("$ ls", trim: true)
-      |> Enum.flat_map(fn el ->
-        el
-        |> String.split("\n", trim: true)
-        |> Enum.reject(&String.contains?(&1, "dir"))
-      end)
+    |> Enum.map(fn el ->
+      el
+      |> String.split("\n", trim: true)
+      |> Enum.reject(&String.contains?(&1, ["dir", "$ ls"]))
       |> then(fn [cd | files] ->
         [
           cd

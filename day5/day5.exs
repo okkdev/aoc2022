@@ -8,10 +8,9 @@ stacks =
   |> String.split("\n")
   |> Enum.drop(-1)
   |> Enum.map(&String.graphemes/1)
-  |> Enum.zip()
-  |> Enum.map(&Tuple.to_list/1)
-  |> Enum.filter(fn stack -> not Enum.all?(stack, &(&1 == " ")) end)
-  |> Enum.map(fn stack -> Enum.filter(stack, &(&1 != " ")) end)
+  |> Enum.zip_with(& &1)
+  |> Enum.map(fn stack -> Enum.reject(stack, &(&1 == " ")) end)
+  |> Enum.reject(&Enum.empty?/1)
   |> Enum.with_index(&{&2 + 1, &1})
   |> Map.new()
 
